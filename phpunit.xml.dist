@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        bootstrap="./tests/bootstrap.php"
+        backupGlobals="false"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+>
+
+    <testsuite name="Test Suite">
+        <directory>tests/</directory>
+    </testsuite>
+    <filter>
+        <whitelist>
+            <directory>.</directory>
+            <exclude>
+                <directory>tests</directory>
+                <directory>vendor</directory>
+                <directory>bin</directory>
+                <directory>tests/_*</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
