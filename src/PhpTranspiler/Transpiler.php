@@ -19,6 +19,10 @@ class Transpiler
 
         $nodes = $traverser->traverse($nodes);
 
+        if(isset($visitor->appendNodes)) {
+            $nodes[] = $visitor->appendNodes;
+        }
+
         $prettyPrinter = new Standard();
         $result = $prettyPrinter->prettyPrintFile($nodes);
         
