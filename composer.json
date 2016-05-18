@@ -1,5 +1,5 @@
 {
-    "name": "jpietrzyk/php-version-transpiler",
+    "name": "janpiet/php-version-transpiler",
     "description": "Transpile php 7 code to php5.6 code",
     "type": "application",
     "require": {
@@ -9,8 +9,13 @@
         "phpunit/phpunit": "^5.3"
     },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "JanPiet\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JanPiet\\Tests\\PhpTranspiler\\": "tests"
         }
     },
     "config": {
