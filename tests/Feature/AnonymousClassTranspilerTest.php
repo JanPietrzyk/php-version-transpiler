@@ -1,8 +1,8 @@
 <?php
 
-namespace JanPiet\Tests\PhpTranspiler;
+namespace JanPiet\Tests\PhpTranspiler\Feature;
 
-use JanPiet\PhpTranspiler\AnonymousClassVisitor;
+use JanPiet\PhpTranspiler\Feature\AnonymousClassVisitor;
 use PhpParser\NodeVisitor;
 
 class AnonymousClassTranspilerTest extends TranspileTestcase

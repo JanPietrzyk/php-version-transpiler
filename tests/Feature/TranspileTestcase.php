@@ -1,6 +1,6 @@
 <?php
 
-namespace JanPiet\Tests\PhpTranspiler;
+namespace JanPiet\Tests\PhpTranspiler\Feature;
 
 
 use JanPiet\PhpTranspiler\Transpiler;
@@ -20,16 +20,19 @@ abstract class TranspileTestcase extends \PHPUnit_Framework_TestCase
 
     protected function transpile(string $file):string
     {
+
+        $destinationFileName = __DIR__ . '/../_out/' . $this->getFixturePath() . '/' . $file;
+
         $transpiler = new Transpiler();
         $transpiler->transpile(
-            __DIR__ . '/_fixtures/' . $this->getFixturePath() . '/' . $file,
-            __DIR__ . '/_out/' . $this->getFixturePath() . '/' . $file,
+            __DIR__ . '/../_fixtures/' . $this->getFixturePath() . '/' . $file,
+            $destinationFileName,
             $this->createNodeVisitor()
         );
 
-        $this->assertFileExists(__DIR__ . '/_out/' . $this->getFixturePath() . '/' . $file);
+        $this->assertFileExists($destinationFileName);
 
-        return __DIR__ . '/_out/' . $this->getFixturePath() . '/' . $file;
+        return $destinationFileName;
     }
 
     abstract protected function createNodeVisitor(): NodeVisitor;

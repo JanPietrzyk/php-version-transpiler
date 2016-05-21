@@ -1,8 +1,8 @@
 <?php
 
-namespace JanPiet\Tests\PhpTranspiler;
+namespace JanPiet\Tests\PhpTranspiler\Feature;
 
-use JanPiet\PhpTranspiler\ReturnTypeVisitor;
+use JanPiet\PhpTranspiler\Feature\ReturnTypeVisitor;
 use PhpParser\NodeVisitor;
 
 class ReturnTypeTranspilerTest extends TranspileTestcase

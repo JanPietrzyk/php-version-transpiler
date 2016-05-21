@@ -1,8 +1,8 @@
 <?php
 
-namespace JanPiet\Tests\PhpTranspiler;
+namespace JanPiet\Tests\PhpTranspiler\Feature;
 
-use JanPiet\PhpTranspiler\TypeHintVisitor;
+use JanPiet\PhpTranspiler\Feature\TypeHintVisitor;
 use PhpParser\NodeVisitor;
 
 class TypeHintTranspilerTest extends TranspileTestcase

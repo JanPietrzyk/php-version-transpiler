@@ -1,30 +1,27 @@
 <?php
 declare(strict_types = 1);
 
-namespace JanPiet\PhpTranspiler;
+namespace JanPiet\PhpTranspiler\Feature;
 
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Node;
 
-class TypeHintVisitor extends NodeVisitorAbstract
+class ReturnTypeVisitor extends NodeVisitorAbstract
 {
-    private $php7OnlyTypeHints = ['int', 'string', 'float', 'bool'];
-
     /**
      * @param Node $node
      * @return null|Node|void
      */
     public function enterNode(\PhpParser\Node $node)
     {
-
-        if (!$node instanceof Node\Param) {
+        if($node instanceof Node\Stmt\Function_) {
+            $node->returnType = null;
             return;
         }
 
-        if (!in_array($node->type, $this->php7OnlyTypeHints)) {
+        if($node instanceof Node\Stmt\ClassMethod) {
+            $node->returnType = null;
             return;
         }
-
-        $node->type = null;
     }
 }

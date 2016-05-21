@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace JanPiet\PhpTranspiler;
+namespace JanPiet\PhpTranspiler\Feature;
 
 use PhpParser\NodeVisitorAbstract;
 use PhpParser\Node;
