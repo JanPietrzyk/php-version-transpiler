@@ -140,37 +140,44 @@ class NodeSearch
 
         $hash = spl_object_hash($sourceNode);
 
-        if (!array_key_exists($hash, $this->parentChain)) {
-            throw new ParentNotFoundException('The node supplied has no parents');
+        if (array_key_exists($hash, $this->parentChain)) {
+            $parents = [$this->parentChain[$hash]];
+        } else {
+            $parents = $this->tree;
         }
 
-        $parent = $this->parentChain[$hash];
-        
-        foreach ($parent->getSubNodeNames() as $subNodeName) {
-            $nodes = &$parent->{$subNodeName};
-            
-            if (!is_array($nodes)) {
-                if ($nodes === $sourceNode) {
-                    $parent->{$subNodeName} = $newNode;
-                    return;
-                }
-
-                continue;
-            }
-
-            $foundKey = false;
-            foreach ($nodes as $key => $node) {
-                if ($node === $sourceNode) {
-                    $foundKey = $key;
-                }
-            }
-            
-            if ($foundKey) {
-                $nodes[$foundKey] = $newNode;
+        foreach ($parents as $key => $parent) {
+            if ($parent === $sourceNode) {
+                $parent[$key] = $newNode;
                 return;
             }
+
+            foreach ($parent->getSubNodeNames() as $subNodeName) {
+                $nodes = &$parent->{$subNodeName};
+
+                if (!is_array($nodes)) {
+                    if ($nodes === $sourceNode) {
+                        $parent->{$subNodeName} = $newNode;
+                        return;
+                    }
+
+                    continue;
+                }
+
+                $foundKey = false;
+                foreach ($nodes as $key => $node) {
+                    if ($node === $sourceNode) {
+                        $foundKey = $key;
+                    }
+                }
+
+                if (false !== $foundKey) {
+                    $nodes[$foundKey] = $newNode;
+                    return;
+                }
+            }
         }
         
-        throw new NodeNotFoundException('Node not found, replce not possible');
+        throw new NodeNotFoundException('Node not found, replace not possible');
     }
 }

@@ -30,7 +30,7 @@ Especially some of the more subtle additions to the language will not be emaulat
 | Scalar type declarations            | x             | -          | x        | -        |  
 | Return type declarations            | x             | -          | x        | -        |
 | Null coalescing operator            | x             | x          | x        | -        |
-| Spaceship operator                  | -             | -          | ?        | -        |
+| Spaceship operator                  | x             | x          | ?        | -        |
 | Constant arrays using define()      | -             | -          | x        | -        |
 | Anonymous classes                   | x             | x          | x        | -        | But get_class() will now give something real back
 | Unicode codepoint escape syntax     | -             | -          | partly?  | partly?  | Would need a shim

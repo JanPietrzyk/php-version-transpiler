@@ -2,6 +2,7 @@
 
 namespace JanPiet\Tests\PhpTranspiler;
 
+use JanPiet\PhpTranspiler\NodeNotFoundException;
 use JanPiet\PhpTranspiler\NodeSearch;
 use JanPiet\PhpTranspiler\ParentNotFoundException;
 use PhpParser\Node;
@@ -16,9 +17,8 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
     {
         $visitor = new class($visitorCount) extends NodeVisitorAbstract
  {
-
      public $nodeCount = 0;
-
+       
      public function enterNode(\PhpParser\Node $node)
      {
          $this->nodeCount++;
@@ -38,7 +38,6 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
     {
         $visitor = new class($visitorCount) extends NodeVisitorAbstract
  {
-
      public $nodeCount = 0;
 
      public function enterNode(\PhpParser\Node $node)
@@ -142,7 +141,7 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
         $search = $this->createSearch();
         $newNode = new Node\Stmt\Property(4, [new Node\Stmt\PropertyProperty('foo')]);
 
-        $this->expectException(ParentNotFoundException::class);
+        $this->expectException(NodeNotFoundException::class);
         $search->replaceNode($newNode, $newNode);
     }
 
