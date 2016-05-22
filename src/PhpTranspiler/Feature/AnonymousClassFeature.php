@@ -24,29 +24,21 @@ class AnonymousClassFeature implements FeatureInterface
 
             $className = uniqid('mine');
             $statementName = $className;
-    
-            try {
-                /** @var Node\Stmt\Namespace_ $namespaceNode */
-                $namespaceNode = $nodeSearch->findParent(Node\Stmt\Namespace_::class, $node);
-                $statementName = implode('\\', $namespaceNode->name->parts ) . '\\' . $className;
-            } catch (ParentNotFoundException $e) {
-
-            }
 
             $newClass = $node->class;
-
-            $node->class = new Node\Name\FullyQualified($statementName);
-
             $newClass->name = $className;
 
             try {
                 /** @var Node\Stmt\Namespace_ $namespaceNode */
                 $namespaceNode = $nodeSearch->findParent(Node\Stmt\Namespace_::class, $node);
                 $namespaceNode->stmts[] = $newClass;
-                
+                $statementName = implode('\\', $namespaceNode->name->parts ) . '\\' . $className;
+
             } catch (ParentNotFoundException $e) {
                 $nodeSearch->appendToRoot($newClass);
             }
+
+            $node->class = new Node\Name\FullyQualified($statementName);
         }
 
         return $found;
