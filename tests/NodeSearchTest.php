@@ -99,15 +99,51 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
         $search->findParent(Node\Stmt\Class_::class, $visitor->node);
     }
 
+    public function test_it_replaces_sub_node_arrays()
+    {
+        $visitor = new class($visitorCount) extends NodeVisitorAbstract {
 
-    private function createSearch(NodeVisitor $visitor)
+            public $node;
+
+            public function enterNode(\PhpParser\Node $node)
+            {
+                if(!$this->node && $node instanceof Node\Stmt\Class_) $this->node = $node;
+            }
+        };
+
+        $search = $this->createSearch($visitor);
+        $newNode = new Node\Stmt\Property(4, [new Node\Stmt\PropertyProperty('foo')]);
+        $search->replaceNode($visitor->node->stmts[2], $newNode);
+
+        $found = false;
+        foreach($search->eachType(Node\Stmt\Property::class) as $node) {
+            if($node === $newNode) {
+                $found = true;
+            }
+        }
+
+        $this->assertTrue($found);
+    }
+
+    public function test_it_throws_when_sub_node_can_not_be_found()
+    {
+        $search = $this->createSearch();
+        $newNode = new Node\Stmt\Property(4, [new Node\Stmt\PropertyProperty('foo')]);
+
+        $this->expectException(ParentNotFoundException::class);
+        $search->replaceNode($newNode, $newNode);
+    }
+
+    private function createSearch(NodeVisitor $visitor = null)
     {
         $parser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
         $nodes = $parser->parse(file_get_contents(__DIR__ . '/_fixtures/search.php'));
 
-        $traverser = new NodeTraverser();
-        $traverser->addVisitor($visitor);
-        $traverser->traverse($nodes);
+        if($visitor) {
+            $traverser = new NodeTraverser();
+            $traverser->addVisitor($visitor);
+            $traverser->traverse($nodes);
+        }
 
         return new NodeSearch($nodes);
     }

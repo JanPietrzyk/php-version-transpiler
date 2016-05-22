@@ -3,23 +3,143 @@
 
 namespace JanPiet\PhpTranspiler\Feature;
 
-use PhpParser\NodeVisitorAbstract;
+use JanPiet\PhpTranspiler\NodeSearch;
 use PhpParser\Node;
 
-class NullCoalescingOperatorVisitor extends NodeVisitorAbstract
+class NullCoalescingOperatorVisitor implements FeatureInterface
 {
     /**
-     * @param Node $node
-     * @return null|Node|void
+     * @param NodeSearch $nodeSearch
+     * @return bool
      */
-    public function enterNode(\PhpParser\Node $node)
+    public function fix(NodeSearch $nodeSearch): bool
     {
+        $found = false;
+        /** @var Node\Expr\BinaryOp\Coalesce $node */
+        foreach ($nodeSearch->eachType(Node\Expr\BinaryOp\Coalesce::class) as $node) {
+            $found = true;
+            $newNode = new Node\Expr\Ternary(
+                new Node\Expr\Isset_([$node->left]),
+                $node->left,
+                $node->right
+            );
 
-        if(!$node instanceof Node\Expr\BinaryOp\Coalesce) {
-            return;
+            $nodeSearch->replaceNode($node, $newNode);
         }
-
-        throw new \Exception('Not implementable through visitors');
-
+        
+        return $found;
     }
 }
+
+/*
+[expr] => PhpParser\Node\Expr\Ternary Object
+                (
+                    [cond] => PhpParser\Node\Expr\Isset_ Object
+                        (
+                            [vars] => Array
+                                (
+                                    [0] => PhpParser\Node\Expr\ArrayDimFetch Object
+                                        (
+                                            [var] => PhpParser\Node\Expr\Variable Object
+                                                (
+                                                    [name] => foo
+                                                    [attributes:protected] => Array
+                                                        (
+                                                            [startLine] => 5
+                                                            [endLine] => 5
+                                                        )
+
+                                                )
+
+                                            [dim] => PhpParser\Node\Scalar\String_ Object
+                                                (
+                                                    [value] => user
+                                                    [attributes:protected] => Array
+                                                        (
+                                                            [startLine] => 5
+                                                            [endLine] => 5
+                                                            [kind] => 1
+                                                        )
+
+                                                )
+
+                                            [attributes:protected] => Array
+                                                (
+                                                    [startLine] => 5
+                                                    [endLine] => 5
+                                                )
+
+                                        )
+
+                                )
+
+                            [attributes:protected] => Array
+                                (
+                                    [startLine] => 5
+                                    [endLine] => 5
+                                )
+
+                        )
+
+                    [if] => PhpParser\Node\Expr\ArrayDimFetch Object
+                        (
+                            [var] => PhpParser\Node\Expr\Variable Object
+                                (
+                                    [name] => foo
+                                    [attributes:protected] => Array
+                                        (
+                                            [startLine] => 5
+                                            [endLine] => 5
+                                        )
+
+                                )
+
+                            [dim] => PhpParser\Node\Scalar\String_ Object
+                                (
+                                    [value] => user
+                                    [attributes:protected] => Array
+                                        (
+                                            [startLine] => 5
+                                            [endLine] => 5
+                                            [kind] => 1
+                                        )
+
+                                )
+
+                            [attributes:protected] => Array
+                                (
+                                    [startLine] => 5
+                                    [endLine] => 5
+                                )
+
+                        )
+
+                    [else] => PhpParser\Node\Scalar\String_ Object
+                        (
+                            [value] => nobody
+                            [attributes:protected] => Array
+                                (
+                                    [startLine] => 5
+                                    [endLine] => 5
+                                    [kind] => 1
+                                )
+
+                        )
+
+                    [attributes:protected] => Array
+                        (
+                            [startLine] => 5
+                            [endLine] => 5
+                        )
+
+                )
+
+            [attributes:protected] => Array
+                (
+                    [startLine] => 5
+                    [endLine] => 5
+                )
+
+        )
+
+*/

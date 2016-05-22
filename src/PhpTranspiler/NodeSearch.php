@@ -134,4 +134,48 @@ class NodeSearch
 
         }
     }
+
+    /**
+     * @param $sourceNode
+     * @param $newNode
+     */
+    public function replaceNode($sourceNode, $newNode)
+    {
+        $this->update();
+
+        $hash = spl_object_hash($sourceNode);
+
+        if(!array_key_exists($hash, $this->parentChain)) {
+            throw new ParentNotFoundException('The node supplied has no parents');
+        }
+
+        $parent = $this->parentChain[$hash];
+        
+        foreach ($parent->getSubNodeNames() as $subNodeName) {
+            $nodes = &$parent->{$subNodeName};
+            
+            if(!is_array($nodes) ) {
+                if($nodes === $sourceNode) {
+                    $parent->{$subNodeName} = $newNode;
+                    return;
+                }
+
+                continue;
+            }
+
+            $foundKey = false;
+            foreach ($nodes as $key => $node) {
+                if($node === $sourceNode) {
+                    $foundKey = $key;
+                }
+            }
+            
+            if($foundKey) {
+                $nodes[$foundKey] = $newNode;
+                return;
+            }
+        }
+        
+        throw new NodeNotFoundException('Node not found, replce not possible');
+    }
 }
