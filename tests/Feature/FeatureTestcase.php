@@ -3,10 +3,11 @@
 namespace JanPiet\Tests\PhpTranspiler\Feature;
 
 
+use JanPiet\PhpTranspiler\Feature\FeatureInterface;
 use JanPiet\PhpTranspiler\Transpiler;
 use PhpParser\NodeVisitor;
 
-abstract class TranspileTestcase extends \PHPUnit_Framework_TestCase
+abstract class FeatureTestcase extends \PHPUnit_Framework_TestCase
 {
     protected function assertFileContains(string $string, string $file)
     {
@@ -24,10 +25,10 @@ abstract class TranspileTestcase extends \PHPUnit_Framework_TestCase
         $destinationFileName = __DIR__ . '/../_out/' . $this->getFixturePath() . '/' . $file;
 
         $transpiler = new Transpiler();
-        $transpiler->transpile(
+        $transpiler->transpileFeature(
             __DIR__ . '/../_fixtures/' . $this->getFixturePath() . '/' . $file,
             $destinationFileName,
-            $this->createNodeVisitor()
+            $this->createFeature()
         );
 
         $this->assertFileExists($destinationFileName);
@@ -35,7 +36,7 @@ abstract class TranspileTestcase extends \PHPUnit_Framework_TestCase
         return $destinationFileName;
     }
 
-    abstract protected function createNodeVisitor(): NodeVisitor;
+    abstract protected function createFeature(): FeatureInterface;
 
     abstract protected function getFixturePath(): string;
 }

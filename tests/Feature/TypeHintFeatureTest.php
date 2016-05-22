@@ -2,10 +2,11 @@
 
 namespace JanPiet\Tests\PhpTranspiler\Feature;
 
-use JanPiet\PhpTranspiler\Feature\TypeHintVisitor;
+use JanPiet\PhpTranspiler\Feature\FeatureInterface;
+use JanPiet\PhpTranspiler\Feature\TypeHintFeature;
 use PhpParser\NodeVisitor;
 
-class TypeHintTranspilerTest extends TranspileTestcase
+class TypeHintFeatureTest extends FeatureTestcase
 {
     public function test_function_it_transpiles_simple_function_with_type_hints()
     {
@@ -46,11 +47,11 @@ class TypeHintTranspilerTest extends TranspileTestcase
 
 
     /**
-     * @return NodeVisitor
+     * @return FeatureInterface
      */
-    protected function createNodeVisitor(): NodeVisitor
+    protected function createFeature(): FeatureInterface
     {
-        return new TypeHintVisitor();
+        return new TypeHintFeature();
     }
 
     protected function getFixturePath(): string

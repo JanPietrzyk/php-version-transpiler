@@ -3,28 +3,23 @@
 
 namespace JanPiet\PhpTranspiler;
 
+use JanPiet\PhpTranspiler\Feature\FeatureInterface;
 use PhpParser\NodeVisitor;
 use PhpParser\ParserFactory;
 use PhpParser\PrettyPrinter\Standard;
-use PhpParser\NodeTraverser;
 
 class Transpiler
 {
-    public function transpile(string $sourceFile, string $targetFile, NodeVisitor $visitor)
+    public function transpileFeature(string $sourceFile, string $targetFile, FeatureInterface $feature)
     {
         $parser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
         $nodes = $parser->parse(file_get_contents($sourceFile));
-        $traverser = new NodeTraverser();
-        $traverser->addVisitor($visitor);
 
-        $nodes = $traverser->traverse($nodes);
-
-        if(isset($visitor->appendNodes)) {
-            $nodes[] = $visitor->appendNodes;
-        }
+        $search = new NodeSearch($nodes);
+        $feature->fix($search);
 
         $prettyPrinter = new Standard();
-        $result = $prettyPrinter->prettyPrintFile($nodes);
+        $result = $prettyPrinter->prettyPrintFile($search->getTree());
         
         @mkdir(dirname($targetFile), 0755, true);
         file_put_contents($targetFile, $result);

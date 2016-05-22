@@ -2,10 +2,11 @@
 
 namespace JanPiet\Tests\PhpTranspiler\Feature;
 
-use JanPiet\PhpTranspiler\Feature\ReturnTypeVisitor;
+use JanPiet\PhpTranspiler\Feature\FeatureInterface;
+use JanPiet\PhpTranspiler\Feature\ReturnTypeFeature;
 use PhpParser\NodeVisitor;
 
-class ReturnTypeTranspilerTest extends TranspileTestcase
+class ReturnTypeFeatureTest extends FeatureTestcase
 {
     public function test_it_transpiles_return_types()
     {
@@ -43,11 +44,11 @@ class ReturnTypeTranspilerTest extends TranspileTestcase
     }
 
     /**
-     * @return NodeVisitor
+     * @return FeatureInterface
      */
-    protected function createNodeVisitor(): NodeVisitor
+    protected function createFeature(): FeatureInterface
     {
-        return new ReturnTypeVisitor();
+        return new ReturnTypeFeature();
     }
 
     protected function getFixturePath(): string

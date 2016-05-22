@@ -2,10 +2,11 @@
 
 namespace JanPiet\Tests\PhpTranspiler\Feature;
 
-use JanPiet\PhpTranspiler\Feature\AnonymousClassVisitor;
+use JanPiet\PhpTranspiler\Feature\AnonymousClassFeature;
+use JanPiet\PhpTranspiler\Feature\FeatureInterface;
 use PhpParser\NodeVisitor;
 
-class AnonymousClassTranspilerTest extends TranspileTestcase
+class AnonymousClassFeatureTest extends FeatureTestcase
 {
     public function test_it_adds_new_classes_to_a_file_that_contained_anonymous_classes()
     {
@@ -26,11 +27,11 @@ class AnonymousClassTranspilerTest extends TranspileTestcase
     }
 
     /**
-     * @return NodeVisitor
+     * @return FeatureInterface
      */
-    protected function createNodeVisitor(): NodeVisitor
+    protected function createFeature(): FeatureInterface
     {
-        return new AnonymousClassVisitor();
+        return new AnonymousClassFeature();
     }
 
     protected function getFixturePath(): string
