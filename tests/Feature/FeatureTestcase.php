@@ -20,18 +20,20 @@ abstract class FeatureTestcase extends \PHPUnit_Framework_TestCase
 
     protected function transpile(string $file):string
     {
-        $destinationFileName = __DIR__ . '/../_out/' . $this->getFixturePath() . '/' . $file;
+        $targetFile = __DIR__ . '/../_out/' . $this->getFixturePath() . '/' . $file;
 
         $transpiler = new Transpiler();
-        $transpiler->transpileFeature(
-            __DIR__ . '/../_fixtures/' . $this->getFixturePath() . '/' . $file,
-            $destinationFileName,
+        $transpileResult = $transpiler->transpileFeature(
+            file_get_contents(__DIR__ . '/../_fixtures/' . $this->getFixturePath() . '/' . $file),
             $this->createFeature()
         );
 
-        $this->assertFileExists($destinationFileName);
+        @mkdir(dirname($targetFile), 0755, true);
+        file_put_contents($targetFile, $transpileResult);
 
-        return $destinationFileName;
+        $this->assertFileExists($targetFile);
+
+        return $targetFile;
     }
 
     abstract protected function createFeature(): FeatureInterface;

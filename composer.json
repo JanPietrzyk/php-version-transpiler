@@ -3,7 +3,8 @@
     "description": "Transpile php 7 code to php5.6 code",
     "type": "application",
     "require": {
-        "nikic/php-parser": "^2.1"
+        "nikic/php-parser": "^2.1",
+        "cilex/cilex": "^1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.3"
