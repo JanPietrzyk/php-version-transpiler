@@ -9,6 +9,8 @@ use PhpParser\Node;
 
 class AnonymousClassFeature implements FeatureInterface
 {
+    private $cnt = 0;
+
     /**
      * @param NodeSearch $nodeSearch
      * @return bool
@@ -22,7 +24,7 @@ class AnonymousClassFeature implements FeatureInterface
             }
             $found = true;
 
-            $className = uniqid('mine');
+            $className = 'mine' . sha1((string) $this->cnt++);
             $statementName = $className;
 
             $newClass = $node->class;

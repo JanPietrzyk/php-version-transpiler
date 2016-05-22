@@ -1,11 +1,24 @@
-# Proof of concept: PHP Version Transpiler
+# PHP Version Transpiler
 
-Just a quick check if it is possible to parse php files and remove/change PHP7 features to create PHP 5.6 compatible code
+Remove PHP7 language features and add PHP 5.6 compatible syntax :)
 
-No exposed functionality, just a test suite.
+useage:
 
-Input: `tests/_fixtures`
-Output: `tests/_out`
+´´´´
+composer install
+php-version-transpiler _PHP_7_Source_Directory_ _PHP_5_6_Target_Directory_
+´´´´
+
+Run tests:
+
+´´´´
+composer install
+bin/phpunit
+´´´´
+
+View the files it generates: 
+* Input: `tests/_fixtures`
+* Output: `tests/_out`
 
 ## Installation
 
