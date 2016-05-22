@@ -4,7 +4,6 @@
 namespace JanPiet\PhpTranspiler;
 
 use JanPiet\PhpTranspiler\Feature\FeatureInterface;
-use PhpParser\NodeVisitor;
 use PhpParser\ParserFactory;
 use PhpParser\PrettyPrinter\Standard;
 
