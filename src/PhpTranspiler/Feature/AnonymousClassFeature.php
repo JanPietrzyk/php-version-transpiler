@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare (strict_types = 1);
 
 namespace JanPiet\PhpTranspiler\Feature;
 
@@ -16,8 +16,8 @@ class AnonymousClassFeature implements FeatureInterface
     public function fix(NodeSearch $nodeSearch): bool
     {
         $found = false;
-        foreach($nodeSearch->eachType(Node\Expr\New_::class) as $node) {
-            if(!$node->class instanceof Node\Stmt\Class_) {
+        foreach ($nodeSearch->eachType(Node\Expr\New_::class) as $node) {
+            if (!$node->class instanceof Node\Stmt\Class_) {
                 continue;
             }
             $found = true;
@@ -32,8 +32,7 @@ class AnonymousClassFeature implements FeatureInterface
                 /** @var Node\Stmt\Namespace_ $namespaceNode */
                 $namespaceNode = $nodeSearch->findParent(Node\Stmt\Namespace_::class, $node);
                 $namespaceNode->stmts[] = $newClass;
-                $statementName = implode('\\', $namespaceNode->name->parts ) . '\\' . $className;
-
+                $statementName = implode('\\', $namespaceNode->name->parts) . '\\' . $className;
             } catch (ParentNotFoundException $e) {
                 $nodeSearch->appendToRoot($newClass);
             }

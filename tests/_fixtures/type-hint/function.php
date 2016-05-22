@@ -1,5 +1,6 @@
 <?php
 
-function test(int $a, string $b) {
+function test(int $a, string $b)
+{
     return 'foo';
 }

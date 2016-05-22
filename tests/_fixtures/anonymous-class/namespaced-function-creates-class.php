@@ -7,9 +7,13 @@ function test()
     return new \stdClass();
 }
 
-class test {}
+class test
+{
+}
 
 function test2()
 {
-    return new class() {};
+    return new class()
+ {
+ };
 }

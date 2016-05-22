@@ -2,7 +2,7 @@
 
 class test
 {
-    function test(\stdClass $a, float $b)
+    public function test(\stdClass $a, float $b)
     {
         return 'foo';
     }

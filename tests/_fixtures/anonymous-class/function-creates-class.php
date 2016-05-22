@@ -7,5 +7,7 @@ function test()
 
 function test2()
 {
-    return new class() {};
+    return new class()
+ {
+ };
 }

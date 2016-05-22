@@ -9,7 +9,8 @@ use PhpParser\NodeVisitor;
 
 class NullCoalescingOperatorFeatureTest extends FeatureTestcase
 {
-    public function test_it_replaces_the_operator() {
+    public function test_it_replaces_the_operator()
+    {
         $createdFile = $this->transpile('default.php');
 
         $this->assertFileNotContains('??', $createdFile);

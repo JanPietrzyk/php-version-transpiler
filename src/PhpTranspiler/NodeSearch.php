@@ -3,7 +3,6 @@
 
 namespace JanPiet\PhpTranspiler;
 
-
 use PhpParser\Node;
 
 class NodeSearch
@@ -41,17 +40,15 @@ class NodeSearch
         $this->update();
 
         foreach ($this->allNodes as $node) {
-
             $found = false;
             foreach ($classNames as $className) {
-                if($node instanceof  $className) {
+                if ($node instanceof  $className) {
                     $found = true;
                     break;
                 }
-
             }
 
-            if(!$found) {
+            if (!$found) {
                 continue;
             }
 
@@ -59,21 +56,20 @@ class NodeSearch
         }
     }
 
-    public function findParent(string $class, Node $fromNode) {
+    public function findParent(string $class, Node $fromNode)
+    {
         $this->update();
 
         do {
             $nodeId = spl_object_hash($fromNode);
             $fromNode = $this->parentChain[$nodeId];
             
-            if(null === $fromNode) {
+            if (null === $fromNode) {
                 throw new ParentNotFoundException('Could not find the parent "' . $class . '" for node');
             }
-
-        } while(!$fromNode instanceof $class);
+        } while (!$fromNode instanceof $class);
 
         return $fromNode;
-
     }
 
     /**
@@ -92,11 +88,12 @@ class NodeSearch
         return $this->tree;
     }
 
-    private function update() {
+    private function update()
+    {
         $allNodes = [];
         $parentChain = [];
 
-        foreach($this->recurse($this->tree) as $parent => $node) {
+        foreach ($this->recurse($this->tree) as $parent => $node) {
             $nodeId = spl_object_hash($node);
             $allNodes[$nodeId] = $node;
             $parentChain[$nodeId] = $parent;
@@ -112,10 +109,10 @@ class NodeSearch
      */
     private function recurse(array $nodes, Node $parent = null): \Traversable
     {
-        foreach($nodes as $node) {
-            if(is_array($node)) {
+        foreach ($nodes as $node) {
+            if (is_array($node)) {
                 yield from $this->recurse($node, $node);
-            } else if($node instanceof Node) {
+            } elseif ($node instanceof Node) {
                 yield $parent => $node;
 
                 $subNodeNames = $node->getSubNodeNames();
@@ -123,15 +120,13 @@ class NodeSearch
                 foreach ($subNodeNames as $subNodeName) {
                     $subNode = $node->{$subNodeName};
 
-                    if(!is_array($subNode)) {
+                    if (!is_array($subNode)) {
                         $subNode = [$subNode];
                     }
 
                     yield from $this->recurse($subNode, $node);
                 }
-
             }
-
         }
     }
 
@@ -145,7 +140,7 @@ class NodeSearch
 
         $hash = spl_object_hash($sourceNode);
 
-        if(!array_key_exists($hash, $this->parentChain)) {
+        if (!array_key_exists($hash, $this->parentChain)) {
             throw new ParentNotFoundException('The node supplied has no parents');
         }
 
@@ -154,8 +149,8 @@ class NodeSearch
         foreach ($parent->getSubNodeNames() as $subNodeName) {
             $nodes = &$parent->{$subNodeName};
             
-            if(!is_array($nodes) ) {
-                if($nodes === $sourceNode) {
+            if (!is_array($nodes)) {
+                if ($nodes === $sourceNode) {
                     $parent->{$subNodeName} = $newNode;
                     return;
                 }
@@ -165,12 +160,12 @@ class NodeSearch
 
             $foundKey = false;
             foreach ($nodes as $key => $node) {
-                if($node === $sourceNode) {
+                if ($node === $sourceNode) {
                     $foundKey = $key;
                 }
             }
             
-            if($foundKey) {
+            if ($foundKey) {
                 $nodes[$foundKey] = $newNode;
                 return;
             }

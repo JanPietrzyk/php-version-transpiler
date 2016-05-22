@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare (strict_types = 1);
 
 namespace JanPiet\PhpTranspiler\Feature;
 
@@ -15,8 +15,8 @@ class ReturnTypeFeature implements FeatureInterface
     public function fix(NodeSearch $nodeSearch): bool
     {
         $found = false;
-        foreach($nodeSearch->eachType(Node\Stmt\Function_::class, Node\Stmt\ClassMethod::class) as $node) {
-            if($node->returnType) {
+        foreach ($nodeSearch->eachType(Node\Stmt\Function_::class, Node\Stmt\ClassMethod::class) as $node) {
+            if ($node->returnType) {
                 $found = true;
             }
 

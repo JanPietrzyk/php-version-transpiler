@@ -1,5 +1,6 @@
 <?php
 
-function test(): int {
+function test(): int
+{
     return 'foo';
 }

@@ -3,7 +3,6 @@
 
 namespace JanPiet\PhpTranspiler\Feature;
 
-
 use JanPiet\PhpTranspiler\NodeSearch;
 
 interface FeatureInterface
@@ -13,5 +12,4 @@ interface FeatureInterface
      * @return bool
      */
     public function fix(NodeSearch $nodeSearch): bool;
-
 }

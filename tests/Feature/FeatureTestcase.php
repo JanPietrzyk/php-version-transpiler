@@ -2,7 +2,6 @@
 
 namespace JanPiet\Tests\PhpTranspiler\Feature;
 
-
 use JanPiet\PhpTranspiler\Feature\FeatureInterface;
 use JanPiet\PhpTranspiler\Transpiler;
 use PhpParser\NodeVisitor;
@@ -21,7 +20,6 @@ abstract class FeatureTestcase extends \PHPUnit_Framework_TestCase
 
     protected function transpile(string $file):string
     {
-
         $destinationFileName = __DIR__ . '/../_out/' . $this->getFixturePath() . '/' . $file;
 
         $transpiler = new Transpiler();
