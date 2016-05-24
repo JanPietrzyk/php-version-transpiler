@@ -134,17 +134,13 @@ class NodeSearch
      * @param $sourceNode
      * @param $newNode
      */
-    public function replaceNode($sourceNode, $newNode)
+    public function replaceNode(Node $sourceNode, Node $newNode)
     {
         $this->update();
 
         $hash = spl_object_hash($sourceNode);
 
-        if (array_key_exists($hash, $this->parentChain)) {
-            $parents = [$this->parentChain[$hash]];
-        } else {
-            $parents = $this->tree;
-        }
+        $parents = $this->determineReplaceParents($hash);
 
         foreach ($parents as $key => $parent) {
             if ($parent === $sourceNode) {
@@ -152,32 +148,62 @@ class NodeSearch
                 return;
             }
 
-            foreach ($parent->getSubNodeNames() as $subNodeName) {
-                $nodes = &$parent->{$subNodeName};
-
-                if (!is_array($nodes)) {
-                    if ($nodes === $sourceNode) {
-                        $parent->{$subNodeName} = $newNode;
-                        return;
-                    }
-
-                    continue;
-                }
-
-                $foundKey = false;
-                foreach ($nodes as $key => $node) {
-                    if ($node === $sourceNode) {
-                        $foundKey = $key;
-                    }
-                }
-
-                if (false !== $foundKey) {
-                    $nodes[$foundKey] = $newNode;
-                    return;
-                }
+            if($this->checkReplaceSubNodes($parent, $sourceNode, $newNode)) {
+                return;
             }
         }
         
         throw new NodeNotFoundException('Node not found, replace not possible');
+    }
+
+    /**
+     * @param Node $parent
+     * @param Node $sourceNode
+     * @param Node $newNode
+     * @return bool
+     */
+    private function checkReplaceSubNodes(Node $parent, Node $sourceNode, Node $newNode): bool
+    {
+        foreach ($parent->getSubNodeNames() as $subNodeName) {
+            $nodes = &$parent->{$subNodeName};
+
+            if (!is_array($nodes)) {
+                if ($nodes === $sourceNode) {
+                    $parent->{$subNodeName} = $newNode;
+                    return true;
+                }
+
+                continue;
+            }
+
+            $foundKey = false;
+            foreach ($nodes as $key => $node) {
+                if ($node === $sourceNode) {
+                    $foundKey = $key;
+                }
+            }
+
+            if (false !== $foundKey) {
+                $nodes[$foundKey] = $newNode;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $hash
+     * @return \PhpParser\Node[]
+     */
+    private function determineReplaceParents(string $hash): array
+    {
+        if (array_key_exists($hash, $this->parentChain)) {
+            $parents = [$this->parentChain[$hash]];
+            return $parents;
+        }
+
+        $parents = $this->tree;
+        return $parents;
     }
 }
