@@ -2,7 +2,7 @@
 
 Remove PHP7 language features and add PHP 5.6 compatible syntax :)
 
-usage:
+Usage:
 
 ```
 composer install

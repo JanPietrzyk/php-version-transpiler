@@ -18,7 +18,6 @@
                 <directory>tests</directory>
                 <directory>vendor</directory>
                 <directory>bin</directory>
-                <directory>tests/_*</directory>
             </exclude>
         </whitelist>
     </filter>
