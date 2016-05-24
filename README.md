@@ -1,3 +1,13 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/JanPietrzyk/php-version-transpiler/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/JanPietrzyk/php-version-transpiler/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/JanPietrzyk/php-version-transpiler/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/JanPietrzyk/php-version-transpiler/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/JanPietrzyk/php-version-transpiler/badges/build.png?b=master)](https://scrutinizer-ci.com/g/JanPietrzyk/php-version-transpiler/build-status/master)
+|
+[![Latest Stable Version](https://poser.pugx.org/janpiet/php-version-transpiler/v/stable)](https://packagist.org/packages/janpiet/php-version-transpiler)
+[![Latest Unstable Version](https://poser.pugx.org/janpiet/php-version-transpiler/v/unstable)](https://packagist.org/packages/janpiet/php-version-transpiler)
+[![License](https://poser.pugx.org/janpiet/php-version-transpiler/license)](https://packagist.org/packages/janpiet/php-version-transpiler)
+[![Monthly Downloads](https://poser.pugx.org/janpiet/php-version-transpiler/d/monthly)](https://packagist.org/packages/janpiet/php-version-transpiler)
+
+
 # PHP Version Transpiler
 
 Remove PHP7 language features and add PHP 5.6 compatible syntax :)
