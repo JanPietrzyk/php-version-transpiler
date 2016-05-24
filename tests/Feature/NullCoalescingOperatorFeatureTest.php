@@ -4,7 +4,7 @@
 namespace JanPiet\Tests\PhpTranspiler\Feature;
 
 use JanPiet\PhpTranspiler\Feature\FeatureInterface;
-use JanPiet\PhpTranspiler\Feature\NullCoalescingOperatorVisitor;
+use JanPiet\PhpTranspiler\Feature\NullCoalescingOperatorFeature;
 use PhpParser\NodeVisitor;
 
 class NullCoalescingOperatorFeatureTest extends FeatureTestcase
@@ -21,7 +21,7 @@ class NullCoalescingOperatorFeatureTest extends FeatureTestcase
 
     protected function createFeature(): FeatureInterface
     {
-        return new NullCoalescingOperatorVisitor();
+        return new NullCoalescingOperatorFeature();
     }
 
     protected function getFixturePath(): string

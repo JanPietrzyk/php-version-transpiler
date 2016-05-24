@@ -6,7 +6,7 @@ namespace JanPiet\PhpTranspiler\Feature;
 use JanPiet\PhpTranspiler\NodeSearch;
 use PhpParser\Node;
 
-class NullCoalescingOperatorVisitor implements FeatureInterface
+class NullCoalescingOperatorFeature implements FeatureInterface
 {
     /**
      * @param NodeSearch $nodeSearch

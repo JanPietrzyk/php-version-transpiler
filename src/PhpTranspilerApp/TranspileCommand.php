@@ -3,7 +3,7 @@
 namespace JanPiet\PhpTranspilerApp;
 
 use JanPiet\PhpTranspiler\Feature\AnonymousClassFeature;
-use JanPiet\PhpTranspiler\Feature\NullCoalescingOperatorVisitor;
+use JanPiet\PhpTranspiler\Feature\NullCoalescingOperatorFeature;
 use JanPiet\PhpTranspiler\Feature\ReturnTypeFeature;
 use JanPiet\PhpTranspiler\Feature\SpaceshipOperatorFeature;
 use JanPiet\PhpTranspiler\Feature\TypeHintFeature;
@@ -48,7 +48,7 @@ class TranspileCommand extends Command
             $transpiled = $transpiler->transpileFeature(
                 $file->getContents(),
                 new AnonymousClassFeature(),
-                new NullCoalescingOperatorVisitor(),
+                new NullCoalescingOperatorFeature(),
                 new ReturnTypeFeature(),
                 new SpaceshipOperatorFeature(),
                 new TypeHintFeature()
