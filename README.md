@@ -12,11 +12,16 @@
 
 Remove PHP7 language features and add PHP 5.6 compatible syntax :)
 
-Usage:
-
+Install:
 ```
-composer install
-php-version-transpiler _PHP_7_Source_Directory_ _PHP_5_6_Target_Directory_
+composer require janpiet/php-version-transpiler
+```
+
+
+
+Usage:
+```
+_Bin_Path/_php-version-transpiler _PHP_7_Source_Directory_ _PHP_5_6_Target_Directory_
 ```
 
 Run tests:
