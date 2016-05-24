@@ -1,8 +1,10 @@
 {
     "name": "janpiet/php-version-transpiler",
-    "description": "Transpile php 7 code to php5.6 code",
-    "type": "application",
+    "description": "Transpile php 7 code to php 5.6 code",
+    "type": "library",
+    "bin": ["php-version-transpiler"],
     "require": {
+        "php": ">=7.0.0",
         "nikic/php-parser": "^2.1",
         "symfony/filesystem": "^3.0",
         "symfony/console": "^3.0",
