@@ -148,7 +148,7 @@ class NodeSearch
                 return;
             }
 
-            if($this->checkReplaceSubNodes($parent, $sourceNode, $newNode)) {
+            if ($this->checkReplaceSubNodes($parent, $sourceNode, $newNode)) {
                 return;
             }
         }
@@ -205,5 +205,31 @@ class NodeSearch
 
         $parents = $this->tree;
         return $parents;
+    }
+
+    public function removeNode(Node $nodeToRemove)
+    {
+        /**
+         * @var Node $parent
+         * @var Node $node
+         */
+        foreach ($this->recurse($this->tree) as $parent => $node) {
+            if ($node !== $nodeToRemove) {
+                continue;
+            }
+
+            if (null == $parent) {
+                $index = array_search($node, $this->tree);
+
+                if (false === $index) {
+                    throw new \LogicException('Unable to find node.');
+                }
+
+                unset($this->tree[$index]);
+                return;
+            }
+
+            throw new \Exception('Unsupported case');
+        }
     }
 }

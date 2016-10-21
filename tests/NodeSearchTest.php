@@ -18,12 +18,13 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
         $visitor = new class($visitorCount) extends NodeVisitorAbstract
  {
      public $nodeCount = 0;
-       
+
      public function enterNode(\PhpParser\Node $node)
      {
          $this->nodeCount++;
      }
  };
+
         $search = $this->createSearch($visitor);
 
         $count = 0;
@@ -47,6 +48,8 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
          }
      }
  };
+
+
         $search = $this->createSearch($visitor);
 
         $count = 0;
@@ -62,7 +65,6 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
     {
         $visitor = new class($visitorCount) extends NodeVisitorAbstract
  {
-
      public $nodeCount = 0;
 
      public function enterNode(\PhpParser\Node $node)
@@ -72,6 +74,7 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
          }
      }
  };
+
         $search = $this->createSearch($visitor);
 
         $count = 0;
@@ -90,7 +93,6 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
     {
         $visitor = new class($visitorCount) extends NodeVisitorAbstract
  {
-
      public $node;
 
      public function enterNode(\PhpParser\Node $node)
@@ -100,6 +102,7 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
          }
      }
  };
+
         $search = $this->createSearch($visitor);
 
 
@@ -111,7 +114,6 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
     {
         $visitor = new class($visitorCount) extends NodeVisitorAbstract
  {
-
      public $node;
 
      public function enterNode(\PhpParser\Node $node)
