@@ -6,6 +6,7 @@ use JanPiet\PhpTranspiler\Feature\AnonymousClassFeature;
 use JanPiet\PhpTranspiler\Feature\NullCoalescingOperatorFeature;
 use JanPiet\PhpTranspiler\Feature\ReturnTypeFeature;
 use JanPiet\PhpTranspiler\Feature\SpaceshipOperatorFeature;
+use JanPiet\PhpTranspiler\Feature\StrictTypesFeature;
 use JanPiet\PhpTranspiler\Feature\TypeHintFeature;
 use JanPiet\PhpTranspiler\Transpiler;
 use Symfony\Component\Console\Command\Command;
@@ -51,7 +52,8 @@ class TranspileCommand extends Command
                 new NullCoalescingOperatorFeature(),
                 new ReturnTypeFeature(),
                 new SpaceshipOperatorFeature(),
-                new TypeHintFeature()
+                new TypeHintFeature(),
+                new StrictTypesFeature()
             );
 
             $filesystem->dumpFile($input->getArgument('destination') . '/' . $file->getRelativePath() . '/' . $file->getFilename(), $transpiled);

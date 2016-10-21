@@ -4,7 +4,6 @@ namespace JanPiet\Tests\PhpTranspiler\Feature;
 
 use JanPiet\PhpTranspiler\Feature\FeatureInterface;
 use JanPiet\PhpTranspiler\Transpiler;
-use PhpParser\NodeVisitor;
 
 abstract class FeatureTestcase extends \PHPUnit_Framework_TestCase
 {
