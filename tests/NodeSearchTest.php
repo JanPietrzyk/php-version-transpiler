@@ -15,7 +15,7 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
 {
     public function test_it_finds_all_nodes()
     {
-        $visitor = new class($visitorCount) extends NodeVisitorAbstract
+        $visitor = new class() extends NodeVisitorAbstract
  {
      public $nodeCount = 0;
 
@@ -31,13 +31,13 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
         foreach ($search->eachType(Node::class) as $searchResult) {
             $count++;
         }
-        
+
         $this->assertEquals($visitor->nodeCount, $count);
     }
 
     public function test_it_finds_nodes_by_type()
     {
-        $visitor = new class($visitorCount) extends NodeVisitorAbstract
+        $visitor = new class() extends NodeVisitorAbstract
  {
      public $nodeCount = 0;
 
@@ -63,7 +63,7 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_finds_nodes_and_then_a_parent()
     {
-        $visitor = new class($visitorCount) extends NodeVisitorAbstract
+        $visitor = new class() extends NodeVisitorAbstract
  {
      public $nodeCount = 0;
 
@@ -91,7 +91,7 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_finds_no_parent_if_the_node_has_none_matching()
     {
-        $visitor = new class($visitorCount) extends NodeVisitorAbstract
+        $visitor = new class() extends NodeVisitorAbstract
  {
      public $node;
 
@@ -112,7 +112,7 @@ class NodeSearchTest extends \PHPUnit_Framework_TestCase
 
     public function test_it_replaces_sub_node_arrays()
     {
-        $visitor = new class($visitorCount) extends NodeVisitorAbstract
+        $visitor = new class() extends NodeVisitorAbstract
  {
      public $node;
 
